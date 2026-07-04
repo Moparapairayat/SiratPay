@@ -1,5 +1,5 @@
 kind: wasmer.io/App.v0
-owner: your-wasmer-username
+owner: moparapairayat
 ame: siratpay
 description: SiratPay self-hosted payment automation platform
 package: .

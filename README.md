@@ -24,10 +24,9 @@ This project is prepared for Wasmer Edge deployment with:
 - environment-based database config in [pp-config.php](pp-config.php)
 
 To deploy:
-1. Replace `your-wasmer-username` in [app.yaml](app.yaml) with your Wasmer account name.
-2. Push this repository to GitHub or GitLab.
-3. Run `wasmer deploy` from the project root.
-4. Set these environment variables in Wasmer for the database: `DB_HOST`, `DB_PORT`, `DB_USERNAME`, `DB_PASSWORD`, `DB_NAME`, `DB_PREFIX`.
+1. Push this repository to GitHub or GitLab.
+2. Run `wasmer deploy` from the project root.
+3. Set these environment variables in Wasmer for the database: `DB_HOST`, `DB_PORT`, `DB_USERNAME`, `DB_PASSWORD`, `DB_NAME`, `DB_PREFIX`.
 
 ## �🛡️ License
 
