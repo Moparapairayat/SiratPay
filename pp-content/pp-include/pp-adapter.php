@@ -9,6 +9,24 @@
         exit('Direct access not allowed');
     }
 
+    // If behind a TLS-terminating proxy (ngrok/localtunnel), respect forwarded proto
+    $isHttpsProxy = false;
+    if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https') {
+        $isHttpsProxy = true;
+    }
+    if (!empty($_SERVER['HTTP_X_FORWARDED_SSL']) && strtolower($_SERVER['HTTP_X_FORWARDED_SSL']) === 'on') {
+        $isHttpsProxy = true;
+    }
+
+    // When proxy indicates HTTPS, ensure session cookies are marked Secure and SameSite=None
+    if ($isHttpsProxy) {
+        ini_set('session.cookie_secure', '1');
+        // PHP < 7.3 may not support samesite via ini; using header below if needed
+        if (PHP_VERSION_ID >= 70300) {
+            ini_set('session.cookie_samesite', 'None');
+        }
+    }
+
     session_start();
 
     if (date_default_timezone_get() !== 'UTC') {

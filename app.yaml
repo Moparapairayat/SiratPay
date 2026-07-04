@@ -1,0 +1,23 @@
+kind: wasmer.io/App.v0
+owner: your-wasmer-username
+ame: siratpay
+description: SiratPay self-hosted payment automation platform
+package: .
+cli_args:
+  - /bin/sh
+  - /app/start.sh
+env:
+  APP_ENV: production
+  PORT: "8080"
+scaling:
+  mode: single_concurrency
+health_checks:
+  - http:
+      method: get
+      path: /
+      interval: 30s
+      timeout: 10s
+      unhealthy_threshold: 2
+      healthy_threshold: 1
+      expected_status_codes:
+        - 200

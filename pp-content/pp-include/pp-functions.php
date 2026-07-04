@@ -13,9 +13,23 @@
     $pp_functions_loaded = true;
     
     function pp_site_url($type = "Full") {
-        // Detect protocol
-        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' 
-                    || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+        // Detect protocol. Respect reverse-proxy headers like X-Forwarded-Proto
+        $isHttps = false;
+        if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
+            $isHttps = true;
+        }
+        if (!empty($_SERVER['SERVER_PORT']) && intval($_SERVER['SERVER_PORT']) === 443) {
+            $isHttps = true;
+        }
+        // Some tunnels / proxies (ngrok, localtunnel) terminate TLS and forward requests over HTTP.
+        // They set X-Forwarded-Proto or X-Forwarded-Ssl to indicate the original scheme.
+        if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https') {
+            $isHttps = true;
+        }
+        if (!empty($_SERVER['HTTP_X_FORWARDED_SSL']) && strtolower($_SERVER['HTTP_X_FORWARDED_SSL']) === 'on') {
+            $isHttps = true;
+        }
+        $protocol = $isHttps ? 'https://' : 'http://';
 
         // Full host with subdomain
         $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
@@ -195,15 +209,34 @@
     // Set a cookie securely (supports all panels)
     function setsCookie($cookieName, $cookieValue, $days = 365) {
         $expiryTime = time() + ($days * 24 * 60 * 60);
-    
-        $isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443;
-    
+
+        // Detect if connection is secure, honoring reverse-proxy headers
+        $isSecure = false;
+        if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
+            $isSecure = true;
+        }
+        if (!empty($_SERVER['SERVER_PORT']) && intval($_SERVER['SERVER_PORT']) === 443) {
+            $isSecure = true;
+        }
+        if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https') {
+            $isSecure = true;
+        }
+        if (!empty($_SERVER['HTTP_X_FORWARDED_SSL']) && strtolower($_SERVER['HTTP_X_FORWARDED_SSL']) === 'on') {
+            $isSecure = true;
+        }
+
+        $samesite = 'Lax';
+        // When using secure proxy (https externally) and cookies need to be available cross-site (tunnel), use None
+        if ($isSecure) {
+            $samesite = 'None';
+        }
+
         setcookie($cookieName, $cookieValue, [
             'expires' => $expiryTime,
             'path' => '/',
             'secure' => $isSecure,
             'httponly' => true,
-            'samesite' => 'Lax', // Use 'None' if cross-domain needed (and use HTTPS)
+            'samesite' => $samesite,
         ]);
     }
     

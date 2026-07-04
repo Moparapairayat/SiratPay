@@ -43,7 +43,7 @@
 
     <style>
         .container{
-            max-width: 650px; 
+            max-width: 780px; 
             width: 100%;
         }
         .company-logo{
@@ -89,7 +89,7 @@
             word-break: break-word;
             border-bottom: 1px solid <?php echo pp_hexToRgba($gateway_info['gateway']['text_color'], 0.25)?>;
         }
-
+        
         .payment-instructions li .dot{
             width: 6px;
             height: 6px;
@@ -132,6 +132,28 @@
             justify-content: center;
             z-index: 9999;
             padding: 15px;
+        }
+
+        /* Verify form styling */
+        .payment-form-submit {
+            margin-top: 18px;
+            background: #ffffff;
+            padding: 14px;
+            border-radius: 10px;
+            box-shadow: 0 8px 30px rgba(10,20,40,0.04);
+            border: 1px solid rgba(15,23,42,0.04);
+        }
+        .payment-form-submit .form-label { color: #374151; font-weight: 600; }
+        .payment-form-submit .form-control {
+            border-radius: 8px;
+            padding: 12px 14px;
+            border: 1px solid #e6eef6;
+        }
+        .payment-form-submit .payment-form-btn {
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-weight: 700;
+            box-shadow: 0 8px 26px <?php echo pp_hexToRgba($gateway_info['gateway']['primary_color'], 0.22); ?>;
         }
 
         .bp-modal-content {
@@ -199,6 +221,9 @@
                 height: 32px;
                 font-size: 20px;
             }
+            .payment-instructions li::before { width:28px; height:28px; font-size:13px; }
+            .payment-instructions { border-left-width: 5px; padding: 10px; }
+            .payment-form-submit { padding: 12px; }
         }
     </style>
 
