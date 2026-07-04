@@ -81,6 +81,15 @@
             --pp-cyan:    #06B6D4;
         }
 
+        /* Fix: Eliminate unwanted background bar behind the floating rounded navbar.
+           The floating .navbar has top margin (~16px) which exposes the parent .page
+           background. We set body and .page to the same color as .page-wrapper so
+           the area behind the navbar margin is seamless — no extra bar visible. */
+        body,
+        .page {
+            background-color: #ECEEF8 !important;
+        }
+
         /* ==================================================
            SIDEBAR
         ================================================== */
@@ -218,16 +227,28 @@
         /* ==================================================
            NAVBAR (PREMIUM LIGHT GLASSMORPHISM)
         ================================================== */
+        /* The <header> wrapper itself must be transparent so only the
+           inner pill/capsule is visible — no full-width background bar. */
         .navbar {
-            background: rgba(255, 255, 255, 0.82) !important;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 12px 16px 0 !important;
+            margin: 0 !important;
+            width: 100% !important;
+            border-radius: 0 !important;
+        }
+
+        /* The inner container becomes the floating glassmorphism pill */
+        .navbar > .container-xl {
+            background: rgba(255, 255, 255, 0.88) !important;
             backdrop-filter: blur(24px) saturate(180%);
             -webkit-backdrop-filter: blur(24px) saturate(180%);
             border: 1px solid rgba(34, 197, 94, 0.12) !important;
-            border-radius: 12px !important; /* Floating rounded corners */
-            box-shadow: 0 4px 20px rgba(34, 197, 94, 0.05);
-            margin: 12px 16px 0 !important; /* Floating margins on mobile */
-            width: calc(100% - 32px) !important;
-            transition: background 0.3s ease, margin 0.3s ease, width 0.3s ease, border-radius 0.3s ease;
+            border-radius: 14px !important;
+            box-shadow: 0 4px 20px rgba(34, 197, 94, 0.06);
+            padding: 6px 20px !important;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
         }
 
         /* Brand logo container */
@@ -397,11 +418,18 @@
                 padding-top: 0 !important; /* Force Nexora brand header to absolute top */
             }
 
+            /* Transparent wrapper: only takes up space and offsets for sidebar */
             .navbar {
-                margin: 16px 24px 0 !important;
-                margin-left: calc(var(--pp-sidebar-width) + 24px) !important;
-                width: calc(100% - var(--pp-sidebar-width) - 48px) !important;
-                border-radius: 16px !important; /* Floating rounded corners on desktop */
+                padding: 16px 24px 0 !important;
+                padding-left: calc(var(--pp-sidebar-width) + 24px) !important;
+                margin: 0 !important;
+                width: 100% !important;
+                border-radius: 0 !important;
+            }
+
+            /* The inner container-xl is the actual visible floating pill on desktop */
+            .navbar > .container-xl {
+                border-radius: 16px !important;
             }
 
             .page-wrapper {
