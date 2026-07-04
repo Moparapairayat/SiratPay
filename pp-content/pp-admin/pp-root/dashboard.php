@@ -357,7 +357,7 @@
 <!-- ==================== PAGE BODY ==================== -->
 <div class="page-body" style="padding-top: 0;">
     <div class="container-xl">
-        <div class="row g-3 mb-3">
+        <div class="row g-3" style="margin-bottom: 20px !important;">
 
             <!-- Total Payments -->
             <div class="col-lg-3 col-md-6">
@@ -458,6 +458,9 @@
                     <div id="chart-customer"></div>
                 </div>
             </div>
+        </div>
+
+        <div class="row g-3">
 
             <!-- Transaction Statistics Chart -->
             <div class="col-lg-6 col-md-6">
