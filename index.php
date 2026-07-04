@@ -86,6 +86,15 @@
     $page = $_GET['page'] ?? '';
     $page = trim($page, '/');
 
+    if ($page === '' && isset($_SERVER['REQUEST_URI'])) {
+        $requestPath = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?? '/');
+        $requestPath = trim($requestPath, '/');
+
+        if ($requestPath !== '' && $requestPath !== 'index.php') {
+            $page = $requestPath;
+        }
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SECURITY: Prevent traversal & illegal chars
@@ -2053,9 +2062,11 @@
 
                     case 'homepageRedirect':
                         if($path_homepageRedirect == ""){
-                            echo '<script>location.href="login";</script>';
+                            header('Location: /?page=login');
+                            exit();
                         }else{
-                            echo '<script>location.href="https://'.$path_homepageRedirect.'";</script>';
+                            header('Location: https://' . $path_homepageRedirect);
+                            exit();
                         }
                         break;
                     default:
