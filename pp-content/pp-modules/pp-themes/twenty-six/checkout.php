@@ -420,19 +420,7 @@
             color: #73809a;
         }
         .pp-selected-summary strong { color: var(--primary); }
-        .pp-login-btn {
-            font-size: 12px;
-            color: var(--primary);
-            border: 1px solid var(--primary);
-            background: none;
-            padding: 4px 14px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 500;
-            font-family: inherit;
-            transition: background 0.15s, color 0.15s;
-        }
-        .pp-login-btn:hover { background: var(--primary); color: var(--primary-text); }
+        /* login button removed for payment page */
 
         /* Category Tabs */
         .pp-tabs {
@@ -901,7 +889,6 @@
 
         <div class="pp-right-header">
             <span class="pp-welcome"><?php echo $data['lang']['welcome'] ?? 'Welcome!'; ?></span>
-            <button class="pp-login-btn"><?php echo $data['lang']['login'] ?? 'Login'; ?></button>
         </div>
 
         <div class="pp-payment-hint">
