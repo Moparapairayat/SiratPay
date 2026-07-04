@@ -82,12 +82,13 @@
         }
 
         /* Fix: Eliminate unwanted background bar behind the floating rounded navbar.
-           The floating .navbar has top margin (~16px) which exposes the parent .page
-           background. We set body and .page to the same color as .page-wrapper so
-           the area behind the navbar margin is seamless — no extra bar visible. */
+           Override body, .page, and Tabler CSS variables so no framework background
+           bleeds through the transparent pp-topnav wrapper margins. */
         body,
         .page {
             background-color: #ECEEF8 !important;
+            --tblr-navbar-bg: transparent;
+            --tblr-bg-surface: #ECEEF8;
         }
 
         /* ==================================================
@@ -223,32 +224,41 @@
         }
 
         #sidebarMenu .badge { font-size: 10px; padding: 3px 7px; }
-
         /* ==================================================
-           NAVBAR (PREMIUM LIGHT GLASSMORPHISM)
+           NAVBAR (PREMIUM LIGHT GLASSMORPHISM V4)
         ================================================== */
-        /* The <header> wrapper itself must be transparent so only the
-           inner pill/capsule is visible — no full-width background bar. */
-        .navbar {
+        /* Outer header wrapper: The actual floating rounded pill */
+        .pp-topnav {
+            background: rgba(255, 255, 255, 0.90) !important;
+            backdrop-filter: blur(20px) saturate(190%) !important;
+            -webkit-backdrop-filter: blur(20px) saturate(190%) !important;
+            border: 1px solid rgba(16, 185, 129, 0.14) !important;
+            border-radius: 16px !important;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08) !important;
+            margin: 12px 16px 16px !important; /* Spacing below the navbar */
+            width: calc(100% - 32px) !important;
+            top: 12px !important; /* Keep floating space on mobile when sticky */
+            min-height: 68px !important;
+            display: flex !important;
+            align-items: center !important;
+            transition: background 0.3s ease, margin 0.3s ease, width 0.3s ease, border-radius 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pp-topnav:hover {
+            box-shadow: 0 12px 36px rgba(15, 23, 42, 0.12) !important;
+            border-color: rgba(16, 185, 129, 0.25) !important;
+        }
+
+        /* Inner container: transparent container, no backgrounds */
+        .pp-topnav > .container-xl {
             background: transparent !important;
             border: none !important;
             box-shadow: none !important;
-            padding: 12px 16px 0 !important;
-            margin: 0 !important;
-            width: 100% !important;
-            border-radius: 0 !important;
-        }
-
-        /* The inner container becomes the floating glassmorphism pill */
-        .navbar > .container-xl {
-            background: rgba(255, 255, 255, 0.88) !important;
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
-            border: 1px solid rgba(34, 197, 94, 0.12) !important;
-            border-radius: 14px !important;
-            box-shadow: 0 4px 20px rgba(34, 197, 94, 0.06);
-            padding: 6px 20px !important;
-            transition: background 0.3s ease, box-shadow 0.3s ease;
+            padding: 8px 20px !important;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
         }
 
         /* Brand logo container */
@@ -264,26 +274,60 @@
             transform: scale(1.02);
         }
 
-        /* User Menu & Avatar */
-        .navbar .nav-link {
-            color: #1e293b !important;
-            font-weight: 500;
+        /* Left Side Title Block */
+        .pp-topnav-title-block {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
         }
-        .navbar .nav-link:hover { 
-            color: #15803d !important; 
+        .pp-topnav-sub {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: #10b981 !important; /* Emerald color */
+            line-height: 1.2;
         }
-        .navbar .text-secondary {
-            color: #16a34a !important; /* Premium green role text */
-            font-weight: 600;
+        .pp-topnav-title {
+            font-size: 0.95rem;
+            font-weight: 750;
+            color: #0f172a !important;
+            margin-top: 2px;
+            line-height: 1.2;
         }
-        .navbar .avatar {
-            border: 2px solid #22c55e !important;
-            box-shadow: 0 0 8px rgba(34, 197, 94, 0.2);
+
+        /* Premium User Profile Pill Menu Button */
+        .pp-topnav-profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 14px !important;
+            border-radius: 12px !important;
+            border: 1px solid transparent !important;
+            transition: all 0.22s ease-in-out;
+            text-decoration: none !important;
+            background: transparent;
+        }
+        .pp-topnav-profile-btn:hover {
+            background: rgba(16, 185, 129, 0.05) !important; /* soft emerald hover background */
+            border-color: rgba(16, 185, 129, 0.15) !important; /* emerald border */
+        }
+        .pp-topnav-profile-btn .avatar {
+            border: 2px solid #10b981 !important;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
+            width: 36px !important;
+            height: 36px !important;
+            border-radius: 10px !important; /* Premium rounded-xl look for avatar */
         }
-        .navbar .nav-link:hover .avatar {
-            transform: scale(1.04);
-            box-shadow: 0 0 12px rgba(34, 197, 94, 0.4);
+        .pp-topnav-profile-btn:hover .avatar {
+            transform: scale(1.05);
+            box-shadow: 0 0 14px rgba(16, 185, 129, 0.45);
+        }
+        .pp-topnav-profile-btn .text-secondary {
+            color: #10b981 !important; /* Premium green role text */
+            font-weight: 650;
+            font-size: 0.72rem;
         }
 
         /* Toggler Icon in Green */
@@ -418,23 +462,22 @@
                 padding-top: 0 !important; /* Force Nexora brand header to absolute top */
             }
 
-            /* Transparent wrapper: only takes up space and offsets for sidebar */
-            .navbar {
-                padding: 16px 24px 0 !important;
-                padding-left: calc(var(--pp-sidebar-width) + 24px) !important;
-                margin: 0 !important;
-                width: 100% !important;
-                border-radius: 0 !important;
+            /* Floating pill styling on desktop next to sidebar */
+            .pp-topnav {
+                margin: 16px 24px 28px !important; /* Added 28px spacing below to push the content down and prevent overlapping */
+                width: calc(100% - 48px) !important;
+                border-radius: 16px !important;
+                top: 16px !important; /* Keep floating space on desktop when sticky */
             }
 
-            /* The inner container-xl is the actual visible floating pill on desktop */
-            .navbar > .container-xl {
-                border-radius: 16px !important;
+            /* Container overrides for desktop */
+            .pp-topnav > .container-xl {
+                padding: 6px 24px !important;
             }
 
             .page-wrapper {
                 margin-left: var(--pp-sidebar-width);
-                padding-top: 24px;
+                padding-top: 0px !important;
             }
         }
 
@@ -577,48 +620,7 @@
     <div id="topProgress" class="progress d-none" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1111; height: 3px;"> <div class="progress-bar bg-primary progress-bar-striped progress-bar-animated" style="width: 0%"></div> </div>
     
     <div class="page">
-        <!-- BEGIN NAVBAR  -->
-        <header class="navbar navbar-expand-md sticky-top d-print-none py-2">
-          <div class="container-xl">
-            <!-- BEGIN NAVBAR TOGGLER -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu"> <span class="navbar-toggler-icon"></span> </button>
-
-            <!-- END NAVBAR TOGGLER -->
-            <!-- BEGIN NAVBAR LOGO (Hidden on desktop because sidebar goes all the way up) -->
-            <div class="navbar-brand pe-0 pe-md-3 d-md-none">
-              <a href="javascript:void(0)" aria-label="Tabler">
-                  <img src="<?= $piprapay_logo_light ?? '' ?>" alt="" style="height: 32px;" onclick="load_content('Dashboard','<?php echo $site_url.$path_admin ?>/dashboard','nav-menu-dashboard')">
-              </a>
-            </div>
-            <!-- END NAVBAR LOGO -->
-             <div class="navbar-nav flex-row ms-auto">
-              <div class="nav-item dropdown">
-                <a href="#" class="nav-link d-flex lh-1 p-0 px-2" data-bs-toggle="dropdown" aria-label="Open user menu" aria-expanded="false">
-                  <span class="avatar avatar-sm" style="background-image: url(https://ui-avatars.com/api/?name=<?php echo getNameChars($global_user_response['response'][0]['full_name'], 2);?>&color=FFFFFF&background=343a40"> </span>
-                  <div class="d-none d-xl-block ps-2">
-                    <div style="width: 100px;white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;"><?php echo $global_user_response['response'][0]['full_name']?></div>
-                    <div class="mt-1 small text-secondary"><?php echo ucfirst($global_user_response['response'][0]['role'])?></div>
-                  </div>
-                </a>
-                <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                  <a href="javascript:void(0)" class="dropdown-item" onclick="load_content('My Account','<?php echo $site_url.$path_admin ?>/my-account','nav-menu-my-account')">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>
-                      My Account
-                  </a>
-                  <a href="javascript:void(0)" class="dropdown-item" onclick="load_content('Activities','<?php echo $site_url.$path_admin ?>/activities','nav-item-activities')">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-activity"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12h4l3 8l4 -16l3 8h4" /></svg>
-                      Activities
-                  </a>
-                  <div class="dropdown-divider"></div>
-                  <a href="<?php echo $site_url.$path_admin ?>/?logout" class="dropdown-item">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-logout"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" /><path d="M9 12h12l-3 -3" /><path d="M18 15l3 -3" /></svg>
-                      Logout
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </header>
+        <!-- BEGIN NAVBAR (Moved inside page-wrapper) -->
 
         <!-- SIDEBAR -->
         <div class="offcanvas-md offcanvas-start sidebar" tabindex="-1" id="sidebarMenu">
@@ -858,11 +860,62 @@
         </div>
 
         <div class="page-wrapper">
+            <!-- BEGIN NAVBAR -->
+            <header class="pp-topnav navbar-expand-md sticky-top d-print-none">
+              <div class="container-xl">
+                <!-- BEGIN NAVBAR TOGGLER -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu"> <span class="navbar-toggler-icon"></span> </button>
+
+                <!-- END NAVBAR TOGGLER -->
+                <!-- BEGIN NAVBAR LOGO (Hidden on desktop because sidebar goes all the way up) -->
+                <div class="navbar-brand pe-0 pe-md-3 d-md-none">
+                  <a href="javascript:void(0)" aria-label="Tabler">
+                      <img src="<?= $piprapay_logo_light ?? '' ?>" alt="" style="height: 32px;" onclick="load_content('Dashboard','<?php echo $site_url.$path_admin ?>/dashboard','nav-menu-dashboard')">
+                  </a>
+                </div>
+                <!-- END NAVBAR LOGO -->
+
+                <!-- BEGIN NAVBAR LEFT TITLE (Hidden on mobile) -->
+                <div class="d-none d-md-flex pp-topnav-title-block">
+                    <span class="pp-topnav-sub">SiratPay Gateway</span>
+                    <span class="pp-topnav-title">Control Panel</span>
+                </div>
+
+                 <div class="navbar-nav flex-row ms-auto">
+                  <div class="nav-item dropdown">
+                    <a href="#" class="pp-topnav-profile-btn" data-bs-toggle="dropdown" aria-label="Open user menu" aria-expanded="false">
+                      <span class="avatar" style="background-image: url(https://ui-avatars.com/api/?name=<?php echo getNameChars($global_user_response['response'][0]['full_name'], 2);?>&color=FFFFFF&background=10b981"> </span>
+                      <div class="d-none d-xl-block text-start ps-1">
+                        <div class="fw-bold text-dark" style="font-size: 0.85rem; width: 100px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; line-height: 1.2;"><?php echo $global_user_response['response'][0]['full_name']?></div>
+                        <div class="text-secondary" style="line-height: 1.2;"><?php echo ucfirst($global_user_response['response'][0]['role'])?></div>
+                      </div>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(30, 41, 59, 0.6)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="ms-1 d-none d-xl-block"><polyline points="6 9 12 15 18 9"/></svg>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                      <a href="javascript:void(0)" class="dropdown-item" onclick="load_content('My Account','<?php echo $site_url.$path_admin ?>/my-account','nav-menu-my-account')">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>
+                          My Account
+                      </a>
+                      <a href="javascript:void(0)" class="dropdown-item" onclick="load_content('Activities','<?php echo $site_url.$path_admin ?>/activities','nav-item-activities')">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-activity"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12h4l3 8l4 -16l3 8h4" /></svg>
+                          Activities
+                      </a>
+                      <div class="dropdown-divider"></div>
+                      <a href="<?php echo $site_url.$path_admin ?>/?logout" class="dropdown-item">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-logout"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" /><path d="M9 12h12l-3 -3" /><path d="M18 15l3 -3" /></svg>
+                          Logout
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </header>
+
             <div class="root-print" style="max-width: 1200px; width: 100%; margin: auto; margin-top: 0px;">
                 <center><div class="spinner-border text-primary" style="margin-top: 150px;">  <span class="visually-hidden">Loading...</span></div></center>
             </div>
 
-            <footer class="footer footer-transparent d-print-none" style="max-width: 1200px; width: 100%; margin: auto; margin-top: 0px;">
+            <footer class="footer footer-transparent d-print-none" style="max-width: 1200px; width: 100%; margin: auto; margin-top: 0px; padding: 10px 0 !important;">
                 <div class="container-xl">
                     <div class="row text-center align-items-center flex-row-reverse">
                         <div class="col-lg-auto ms-lg-auto">

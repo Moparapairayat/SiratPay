@@ -12,7 +12,7 @@
 
 <style>
   #chart-gateway-statistics .apexcharts-legend.apexcharts-align-center.apx-legend-position-bottom {
-      top: 263px !important;
+      top: 213px !important;
   }
 
   /* Override page background to premium radial gradient with brand glow blobs */
@@ -224,8 +224,8 @@
   .pp-page-header {
       background: linear-gradient(135deg, #020a06 0%, #051a10 50%, #0d3824 100%);
       border-radius: 20px;
-      padding: 32px 36px;
-      margin-bottom: 28px;
+      padding: 20px 24px;
+      margin-bottom: 20px;
       position: relative;
       overflow: hidden;
       border: 1px solid rgba(163, 230, 53, 0.18);
@@ -887,7 +887,7 @@
                       {
                         chart: {
                           type: "area",
-                          height: 288,
+                          height: 240,
                           fontFamily: "inherit",
                           toolbar: { show: false },
                           sparkline: { enabled: false },
@@ -1077,7 +1077,7 @@
                             {
                                 chart: {
                                     type: "donut",
-                                    height: 290,
+                                    height: 240,
                                     fontFamily: "inherit",
                                     animations: { enabled: true, easing: 'easeinout', speed: 800 }
                                 },
