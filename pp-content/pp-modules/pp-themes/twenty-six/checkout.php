@@ -253,6 +253,20 @@
         }
         .pp-amount-badge-label { font-size: 11px; opacity: 0.80; font-weight: 400; letter-spacing: 0.3px; }
         .pp-amount-badge-value { font-size: 28px; font-weight: 800; letter-spacing: -1px; margin-top: 3px; }
+        .pp-secure-callout {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            background: linear-gradient(135deg, #f8fbff 0%, #f2f7ff 100%);
+            border: 1px solid #dce8f7;
+            border-radius: var(--radius-md);
+            padding: 12px 13px;
+            color: #43526a;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+        .pp-secure-callout svg { width: 16px; height: 16px; color: var(--primary); flex-shrink: 0; margin-top: 1px; }
+        .pp-secure-callout strong { display: block; color: #233244; margin-bottom: 2px; }
         .pp-countdown {
             position: absolute;
             top: 10px; right: 12px;
@@ -351,6 +365,27 @@
             border-bottom: 1px solid #f0f3f8;
         }
         .pp-welcome { font-size: 14px; font-weight: 600; color: #3a4052; }
+        .pp-payment-hint {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            margin: 12px 20px 0;
+            padding: 11px 12px;
+            border-radius: var(--radius-md);
+            background: #f8fbff;
+            border: 1px solid #e5eef9;
+            color: #55627a;
+            font-size: 12px;
+            line-height: 1.45;
+        }
+        .pp-payment-hint svg { width: 16px; height: 16px; color: var(--primary); flex-shrink: 0; margin-top: 1px; }
+        .pp-payment-hint strong { display: block; color: #233244; margin-bottom: 2px; }
+        .pp-selected-summary {
+            margin: 8px 20px 0;
+            font-size: 12px;
+            color: #73809a;
+        }
+        .pp-selected-summary strong { color: var(--primary); }
         .pp-login-btn {
             font-size: 12px;
             color: var(--primary);
@@ -400,41 +435,46 @@
 
         .pp-gw-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            max-height: 300px;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+            max-height: 310px;
             overflow-y: auto;
             padding-right: 4px;
+            justify-items: center;
         }
-        .pp-gw-grid::-webkit-scrollbar { width: 4px; }
-        .pp-gw-grid::-webkit-scrollbar-thumb { background: #d0d7e3; border-radius: 4px; }
+        .pp-gw-grid::-webkit-scrollbar { width: 5px; }
+        .pp-gw-grid::-webkit-scrollbar-thumb { background: rgba(99,115,129,0.28); border-radius: 999px; }
         .pp-gw-grid::-webkit-scrollbar-track { background: transparent; }
 
         .pp-gw-card {
             border: 1.5px solid #e8edf3;
-            border-radius: 10px;
-            padding: 14px 8px 10px;
+            border-radius: 18px;
+            width: 100%;
+            max-width: 132px;
+            min-width: 110px;
+            min-height: 122px;
+            padding: 16px 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
             cursor: pointer;
             transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition), background var(--transition);
             position: relative;
-            background: #fff;
+            background: #ffffff;
             user-select: none;
-            aspect-ratio: 1 / 1;
+            box-shadow: 0 10px 22px rgba(15, 35, 80, 0.04);
         }
         .pp-gw-card:hover {
             border-color: var(--primary);
-            box-shadow: 0 0 0 2px var(--primary-light), 0 4px 14px rgba(0,0,0,0.07);
-            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 10px 24px rgba(26, 125, 90, 0.12);
+            transform: translateY(-1px);
             background: #fff;
         }
         .pp-gw-card.selected {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px var(--primary-light), 0 4px 16px <?php echo pp_hexToRgba($primary_col, 0.15); ?>;
+            box-shadow: 0 16px 40px rgba(26, 125, 90, 0.18);
             background: #fff;
             transform: translateY(-1px);
         }
@@ -459,14 +499,14 @@
         .pp-check svg { width: 10px; height: 10px; color: #fff; }
         .pp-gw-logo-wrap {
             width: 100%;
-            flex: 1;
+            min-height: 56px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0 4px;
+            padding: 0 6px;
         }
-        .pp-gw-logo { max-width: 90px; max-height: 42px; width: 100%; object-fit: contain; }
-        .pp-gw-name { font-size: 10px; font-weight: 500; color: #6b7490; text-align: center; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; padding: 0 4px; }
+        .pp-gw-logo { max-width: 76px; max-height: 48px; width: auto; height: auto; object-fit: contain; }
+        .pp-gw-name { font-size: 10.5px; font-weight: 600; color: #4a5568; text-align: center; line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; padding: 0 6px; }
 
         /* Empty state */
         .pp-empty {
@@ -699,7 +739,7 @@
         @media (max-width: 720px) {
             .pp-checkout-card { flex-direction: column; }
             .pp-left { width: 100%; border-right: none; border-bottom: 1px solid #e8edf3; }
-            .pp-gw-grid { grid-template-columns: repeat(3, 1fr); max-height: 200px; }
+            .pp-gw-grid { grid-template-columns: repeat(3, 1fr); max-height: 240px; }
         }
         @media (max-width: 480px) {
             .pp-gw-grid { grid-template-columns: repeat(2, 1fr); }
@@ -747,6 +787,14 @@
                 </div>
                 <div class="pp-amount-badge-label"><?php echo $data['lang']['you_are_paying'] ?? 'You are paying'; ?></div>
                 <div class="pp-amount-badge-value"><?php echo $currency; ?><?php echo $total; ?></div>
+            </div>
+
+            <div class="pp-secure-callout">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <div>
+                    <strong>Secure checkout</strong>
+                    Your payment is protected with SSL and processed through trusted gateways.
+                </div>
             </div>
 
             <!-- Receipt breakdown -->
@@ -804,6 +852,15 @@
             <span class="pp-welcome"><?php echo $data['lang']['welcome'] ?? 'Welcome!'; ?></span>
             <button class="pp-login-btn"><?php echo $data['lang']['login'] ?? 'Login'; ?></button>
         </div>
+
+        <div class="pp-payment-hint">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 4v5c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V7l7-4z"/><path d="M9.5 12.5l1.8 1.8 3.2-3.6"/></svg>
+            <div>
+                <strong>Choose a payment method</strong>
+                Select the option that suits you best and continue securely.
+            </div>
+        </div>
+        <div class="pp-selected-summary" id="pp-selected-summary">No payment method selected yet.</div>
 
         <!-- Category Tabs -->
         <div class="pp-tabs" id="pp-tabs">
@@ -1081,6 +1138,13 @@
         el.classList.add('selected');
         selectedGatewayId = gatewayId;
         document.getElementById('pp-pay-btn').disabled = false;
+
+        var summary = document.getElementById('pp-selected-summary');
+        if (summary) {
+            var gatewayName = el.querySelector('.pp-gw-name');
+            var name = gatewayName ? gatewayName.textContent.trim() : 'Selected payment method';
+            summary.innerHTML = '<strong>Selected:</strong> ' + name;
+        }
     };
 
     /* ── Proceed Payment ── */
