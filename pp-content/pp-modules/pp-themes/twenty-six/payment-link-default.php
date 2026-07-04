@@ -76,12 +76,25 @@
             --tblr-btn-disabled-color: <?php echo $data['options']['text_color'];?>;
             --tblr-btn-box-shadow: <?php echo $data['options']['text_color'];?>;
         }
+        .pp-text-logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: <?php echo $data['options']['primary_color'];?>;
+            letter-spacing: -0.04em;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-transform: none;
+        }
     </style>
 </head>
 <body style="<?= $bgStyle ?> font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
     <div class="container container-tight py-4">
         <div class="text-center mb-4">
-            <img src="<?php echo $data['brand']['logo'];?>" alt="" style=" height: 40px; ">
+            <?php $brand_name = htmlspecialchars($data['brand']['name'] ?? ''); $brand_logo = $data['brand']['logo'] ?? $data['brand']['favicon']; ?>
+            <?php if(!empty($brand_logo) && $brand_logo !== '--'): ?>
+                <img src="<?php echo $brand_logo; ?>" alt="<?php echo $brand_name; ?>" class="pp-brand-logo-img" style="height:40px; object-fit:contain;" />
+            <?php else: ?>
+                <div class="pp-text-logo"><?php echo $brand_name; ?></div>
+            <?php endif; ?>
         </div>
         <div class="card card-md">
           <div class="card-body text-center py-3 p-sm-4">

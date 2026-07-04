@@ -140,35 +140,36 @@
             position: relative;
             z-index: 1;
             width: 100%;
-            max-width: 940px;
+            max-width: 900px;
             display: flex;
-            border-radius: var(--radius-lg);
+            border-radius: 28px;
             overflow: hidden;
-            box-shadow: var(--shadow-card);
+            box-shadow: 0 40px 90px rgba(15, 35, 80, 0.08);
             background: #fff;
             min-height: 560px;
-            border: 1px solid rgba(255,255,255,0.18);
+            border: 1px solid rgba(228,232,241,0.85);
             animation: ppFadeUp 0.45s cubic-bezier(0.22,1,0.36,1) both;
         }
 
         /* ── LEFT PANE ── */
         .pp-left {
-            width: 38%;
+            width: 36%;
             flex-shrink: 0;
-            background: linear-gradient(180deg, #f7fafd 0%, #eef3f9 100%);
+            background: linear-gradient(180deg, #f6f9fc 0%, #eef4fb 100%);
             display: flex;
             flex-direction: column;
             padding: 0;
-            border-right: 1px solid #dde4ef;
+            border-right: 1px solid #e4ebf5;
         }
 
         .pp-left-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 14px 18px;
-            border-bottom: 1px solid #e4e9f0;
-            background: #fff;
+            padding: 18px 22px;
+            border-bottom: 1px solid #dce6f0;
+            background: rgba(255,255,255,0.88);
+            backdrop-filter: blur(12px);
         }
         .pp-back-btn {
             display: flex;
@@ -186,16 +187,38 @@
         }
         .pp-back-btn:hover { background: var(--primary-mid); }
         .pp-brand-row { display: flex; align-items: center; gap: 8px; }
-        .pp-brand-logo {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 1.5px solid #e0e5ee;
+        .pp-brand-text-logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.03em;
+            text-transform: none;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
         }
         .pp-brand-name { font-size: 13px; font-weight: 600; color: #1a1d23; }
 
-        .pp-left-body { padding: 18px; flex: 1; display: flex; flex-direction: column; gap: 14px; }
+        .pp-left-body { padding: 22px 20px 18px; flex: 1; display: flex; flex-direction: column; gap: 16px; }
+
+        .pp-summary-head {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .pp-summary-head h2 {
+            font-size: 18px;
+            margin: 0;
+            color: #1f2937;
+            font-weight: 700;
+        }
+        .pp-summary-head p {
+            margin: 0;
+            font-size: 13px;
+            color: #60718a;
+            line-height: 1.5;
+        }
 
         /* Trx ID row */
         .pp-trx-row {
@@ -227,13 +250,13 @@
 
         /* Amount badge */
         .pp-amount-badge {
-            background: linear-gradient(135deg, var(--primary) 0%, <?php echo pp_hexToRgba($primary_col, 0.80); ?> 100%);
-            border-radius: var(--radius-md);
-            padding: 16px 16px 14px;
+            background: linear-gradient(135deg, var(--primary) 0%, <?php echo pp_hexToRgba($primary_col, 0.82); ?> 100%);
+            border-radius: 22px;
+            padding: 18px 18px 16px;
             color: var(--primary-text);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 6px 24px <?php echo pp_hexToRgba($primary_col, 0.35); ?>;
+            box-shadow: 0 12px 32px <?php echo pp_hexToRgba($primary_col, 0.26); ?>;
         }
         .pp-amount-badge::before {
             content: '';
@@ -257,13 +280,13 @@
             display: flex;
             gap: 10px;
             align-items: flex-start;
-            background: linear-gradient(135deg, #f8fbff 0%, #f2f7ff 100%);
-            border: 1px solid #dce8f7;
-            border-radius: var(--radius-md);
-            padding: 12px 13px;
-            color: #43526a;
-            font-size: 12px;
-            line-height: 1.5;
+            background: rgba(243, 249, 255, 0.95);
+            border: 1px solid #d9e6f4;
+            border-radius: 18px;
+            padding: 14px 14px;
+            color: #42506c;
+            font-size: 12.5px;
+            line-height: 1.6;
         }
         .pp-secure-callout svg { width: 16px; height: 16px; color: var(--primary); flex-shrink: 0; margin-top: 1px; }
         .pp-secure-callout strong { display: block; color: #233244; margin-bottom: 2px; }
@@ -361,10 +384,21 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 14px 20px;
+            padding: 18px 22px;
             border-bottom: 1px solid #f0f3f8;
         }
-        .pp-welcome { font-size: 14px; font-weight: 600; color: #3a4052; }
+        .pp-welcome { font-size: 15px; font-weight: 700; color: #1f2937; }
+        .pp-right-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #111827;
+            margin: 0;
+        }
+        .pp-right-subtitle {
+            margin-top: 4px;
+            font-size: 13px;
+            color: #6b7280;
+        }
         .pp-payment-hint {
             display: flex;
             gap: 10px;
@@ -431,13 +465,13 @@
         .pp-right-body { flex: 1; padding: 16px 20px; overflow-y: auto; }
         .pp-tab-panel { display: none; }
         .pp-tab-panel.active { display: block; }
-        .pp-gw-label { font-size: 12px; color: #7a8599; font-weight: 500; margin-bottom: 10px; }
+        .pp-gw-label { font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
 
         .pp-gw-grid {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 12px;
-            max-height: 310px;
+            gap: 8px;
+            max-height: 280px;
             overflow-y: auto;
             padding-right: 4px;
             justify-items: center;
@@ -448,23 +482,23 @@
 
         .pp-gw-card {
             border: 1.5px solid #e8edf3;
-            border-radius: 18px;
+            border-radius: 20px;
             width: 100%;
-            max-width: 132px;
-            min-width: 110px;
-            min-height: 122px;
-            padding: 16px 12px;
+            max-width: 108px;
+            min-width: 86px;
+            min-height: 98px;
+            padding: 11px 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 6px;
             cursor: pointer;
             transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition), background var(--transition);
             position: relative;
             background: #ffffff;
             user-select: none;
-            box-shadow: 0 10px 22px rgba(15, 35, 80, 0.04);
+            box-shadow: 0 6px 14px rgba(15, 35, 80, 0.04);
         }
         .pp-gw-card:hover {
             border-color: var(--primary);
@@ -485,7 +519,7 @@
         .pp-check {
             position: absolute;
             top: 5px; right: 5px;
-            width: 17px; height: 17px;
+            width: 16px; height: 16px;
             background: var(--primary);
             border-radius: 50%;
             display: flex;
@@ -499,14 +533,14 @@
         .pp-check svg { width: 10px; height: 10px; color: #fff; }
         .pp-gw-logo-wrap {
             width: 100%;
-            min-height: 56px;
+            min-height: 42px;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 0 6px;
         }
-        .pp-gw-logo { max-width: 76px; max-height: 48px; width: auto; height: auto; object-fit: contain; }
-        .pp-gw-name { font-size: 10.5px; font-weight: 600; color: #4a5568; text-align: center; line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; padding: 0 6px; }
+        .pp-gw-logo { max-width: 60px; max-height: 30px; width: auto; height: auto; object-fit: contain; }
+        .pp-gw-name { font-size: 10px; font-weight: 600; color: #4a5568; text-align: center; line-height: 1.1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; padding: 0 4px; }
 
         /* Empty state */
         .pp-empty {
@@ -526,12 +560,12 @@
         /* Pay Button */
         .pp-pay-btn {
             width: 100%;
-            padding: 14px 20px;
-            background: linear-gradient(135deg, var(--primary) 0%, <?php echo pp_hexToRgba($primary_col, 0.82); ?> 100%);
+            padding: 16px 22px;
+            background: linear-gradient(135deg, var(--primary) 0%, <?php echo pp_hexToRgba($primary_col, 0.84); ?> 100%);
             color: var(--primary-text);
             border: none;
-            border-radius: var(--radius-md);
-            font-size: 15px;
+            border-radius: 24px;
+            font-size: 15.5px;
             font-weight: 700;
             cursor: pointer;
             font-family: inherit;
@@ -739,10 +773,18 @@
         @media (max-width: 720px) {
             .pp-checkout-card { flex-direction: column; }
             .pp-left { width: 100%; border-right: none; border-bottom: 1px solid #e8edf3; }
-            .pp-gw-grid { grid-template-columns: repeat(3, 1fr); max-height: 240px; }
+            .pp-gw-grid { grid-template-columns: repeat(3, 1fr); max-height: 220px; gap: 7px; }
+            .pp-gw-card { max-width: 98px; min-width: 78px; min-height: 90px; padding: 9px 8px; gap: 5px; }
+            .pp-gw-logo-wrap { min-height: 44px; }
+            .pp-gw-logo { max-width: 62px; max-height: 34px; }
+            .pp-gw-name { font-size: 9.75px; padding: 0 4px; }
         }
         @media (max-width: 480px) {
-            .pp-gw-grid { grid-template-columns: repeat(2, 1fr); }
+            .pp-gw-grid { grid-template-columns: repeat(2, 1fr); max-height: 210px; }
+            .pp-gw-card { max-width: 98px; min-width: 72px; min-height: 86px; padding: 8px 7px; }
+            .pp-gw-logo-wrap { min-height: 40px; }
+            .pp-gw-logo { max-width: 58px; max-height: 32px; }
+            .pp-gw-name { font-size: 9px; }
             .pp-tabs { overflow-x: auto; padding: 0 12px; }
             .pp-tab { padding: 11px 10px; font-size: 12px; }
         }
@@ -762,13 +804,22 @@
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><path d="M15 18l-6-6 6-6"/></svg>
             </a>
             <div class="pp-brand-row">
-                <img src="<?php echo $brand_logo; ?>" alt="<?php echo $brand_name; ?>" class="pp-brand-logo">
+                <?php if(!empty($brand_logo) && $brand_logo !== '--'): ?>
+                    <img src="<?php echo $brand_logo; ?>" alt="<?php echo $brand_name; ?>" class="pp-brand-logo-img" style="height:30px; object-fit:contain;" />
+                <?php else: ?>
+                    <span class="pp-brand-text-logo"><?php echo $brand_name; ?></span>
+                <?php endif; ?>
                 <span class="pp-brand-name"><?php echo $brand_name; ?></span>
             </div>
             <div style="width:32px;"></div>
         </div>
 
         <div class="pp-left-body">
+
+            <div class="pp-summary-head">
+                <h2><?php echo $data['lang']['checkout_summary'] ?? 'Payment Summary'; ?></h2>
+                <p><?php echo $data['lang']['summary_description'] ?? 'Review the amount and choose your preferred payment option below.'; ?></p>
+            </div>
 
             <!-- Trx ID -->
             <div class="pp-trx-row">
@@ -1024,7 +1075,7 @@
             <div class="pp-brand-footer">
                 <div class="pp-powered">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                    <?php echo $data['options']['watermark_text'] ?? 'Powered by BillPax'; ?>
+                    <?php echo $data['options']['watermark_text'] ?? 'Powered by SiratPay'; ?>
                 </div>
                 <div class="pp-secure-badge">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
