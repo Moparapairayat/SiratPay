@@ -37,8 +37,8 @@
     $trx_ref     = htmlspecialchars($data['transaction']['ref'] ?? '');
     $brand_name  = htmlspecialchars($data['brand']['name'] ?? '');
     $brand_logo  = $data['brand']['logo'] ?? $data['brand']['favicon'];
-    $primary_col = $data['options']['primary_color'] ?? '#1a7d5a';
-    $text_col    = $data['options']['text_color'] ?? '#ffffff';
+    $primary_col = !empty($data['options']['primary_color']) ? $data['options']['primary_color'] : '#15803d';
+    $text_col    = !empty($data['options']['text_color'])    ? $data['options']['text_color']    : '#ffffff';
 
     // Theme asset base URL
     $theme_asset_url = $data['options']['site_url'] ?? '';

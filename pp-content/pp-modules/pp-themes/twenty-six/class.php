@@ -70,7 +70,7 @@
                     'name'  => 'primary_color',
                     'label' => 'Primary Color',
                     'type'  => 'color',
-                    'value' => '#5f38f9',
+                    'value' => '#15803d',
                     'required' => false,
                     'placeholder' => '',
                 ],
