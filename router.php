@@ -7,5 +7,8 @@ if ($uri !== '/' && file_exists(__DIR__ . $uri)) {
 }
 
 // Route to index.php with the page query parameter set
-$_GET['page'] = ltrim($uri, '/');
+$pathPage = ltrim($uri, '/');
+if ($pathPage !== '') {
+    $_GET['page'] = $pathPage;
+}
 require_once __DIR__ . '/index.php';

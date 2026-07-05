@@ -64,8 +64,16 @@
                 $pdo->commit();
             }
 
-            // Config already set via environment variables on Wasmer.io
-            // file_put_contents is skipped — Wasmer filesystem is read-only
+            // Write temporary config file for local installation process
+            $configContent = "<?php\n" .
+                             "    \$db_host   = '$host';\n" .
+                             "    \$db_port   = '$port';\n" .
+                             "    \$db_user   = '$username';\n" .
+                             "    \$db_pass   = '$password';\n" .
+                             "    \$db_name   = '$dbname';\n" .
+                             "    \$db_prefix = '$tablePrefix';\n" .
+                             "?>";
+            file_put_contents(__DIR__ . '/../../pp-temp-config.php', $configContent);
 
             echo json_encode(['status' => 'true', 'title' => 'Imported successfully', 'message' => 'Database connection verified and imported successfully.']);
         } catch (Throwable $e) {
@@ -128,8 +136,10 @@
 
                     insertData($db_prefix.'currency', $columns, $values);
 
-                    // Config already pre-set via environment variables on Wasmer.io
-                    // Skipping file_put_contents — Wasmer filesystem is read-only
+                    // Finalize installation by promoting the temp config to main config file
+                    if (file_exists(__DIR__ . '/../../pp-temp-config.php')) {
+                        rename(__DIR__ . '/../../pp-temp-config.php', __DIR__ . '/../../pp-config.php');
+                    }
 
                     echo json_encode(['status' => "true", 'message' => 'Install Completed.']);
                 }else{
