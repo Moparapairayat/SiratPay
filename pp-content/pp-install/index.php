@@ -64,17 +64,8 @@
                 $pdo->commit();
             }
 
-            // Write config file
-            $configContent = "<?php
-    \$db_host = '".addslashes($host). "';
-    \$db_port = '" . addslashes($port) . "'; 
-    \$db_user = '".addslashes($username)."';
-    \$db_pass = '".addslashes($password)."';
-    \$db_name = '".addslashes($dbname)."';
-    \$db_prefix = '".addslashes($tablePrefix)."';
-?>";
-
-            file_put_contents(__DIR__ . '/../../pp-temp-config.php', $configContent);
+            // Config already set via environment variables on Wasmer.io
+            // file_put_contents is skipped — Wasmer filesystem is read-only
 
             echo json_encode(['status' => 'true', 'title' => 'Imported successfully', 'message' => 'Database connection verified and imported successfully.']);
         } catch (Throwable $e) {
@@ -137,28 +128,8 @@
 
                     insertData($db_prefix.'currency', $columns, $values);
 
-                    $tempFile  = __DIR__ . '/../../pp-temp-config.php';
-                    $finalFile = __DIR__ . '/../../pp-config.php';
-
-                    if (!file_exists($tempFile)) {
-                        echo json_encode(['status' => 'false', 'message' => 'Temp config file not found.']);
-                        exit;
-                    }
-
-                    // Read temp content
-                    $configContent = file_get_contents($tempFile);
-                    if ($configContent === false) {
-                        echo json_encode(['status' => 'false', 'message' => 'Failed to read temp config file.']);
-                        exit;
-                    }
-
-                    // Write final config
-                    if (file_put_contents($finalFile, $configContent) === false) {
-                        echo json_encode(['status' => 'false', 'message' => 'Failed to create final config file.']);
-                        exit;
-                    }
-
-                    unlink($tempFile);
+                    // Config already pre-set via environment variables on Wasmer.io
+                    // Skipping file_put_contents — Wasmer filesystem is read-only
 
                     echo json_encode(['status' => "true", 'message' => 'Install Completed.']);
                 }else{

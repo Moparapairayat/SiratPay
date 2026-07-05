@@ -16,4 +16,4 @@ runner = "wasi"
 
 [command.annotations.wasi]
 cwd = "/app"
-main-args = ["-S", "0.0.0.0:8080", "-t", "/app"]
+main-args = ["-S", "0.0.0.0:8080", "/app/router.php"]
