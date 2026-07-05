@@ -1,0 +1,19 @@
+[package]
+name = "siratpay"
+version = "0.1.0"
+entrypoint = "start"
+
+[dependencies]
+"php/php-32" = "=8.3.2102"
+
+[fs]
+"/app" = "."
+
+[[command]]
+name = "start"
+module = "php/php-32:php"
+runner = "wasi"
+
+[command.annotations.wasi]
+cwd = "/app"
+main-args = ["-S", "0.0.0.0:8080", "-t", "/app"]

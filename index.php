@@ -95,6 +95,10 @@
         }
     }
 
+    if ($page === '') {
+        $page = 'homepageRedirect';
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SECURITY: Prevent traversal & illegal chars
