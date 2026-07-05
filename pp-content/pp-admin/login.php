@@ -40,6 +40,36 @@ if ($global_user_login == true) {
             --tblr-font-serif: Georgia, Times New Roman, times, serif;
             --tblr-font-comic: Comic Sans MS, Comic Sans, Chalkboard SE, Comic Neue, sans-serif, cursive;
         }
+
+        .input-group-flat {
+            position: relative;
+        }
+        .password-toggle {
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s ease !important;
+            padding-right: 12px !important;
+            background-color: transparent !important;
+            border-left: none !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .password-toggle:hover {
+            opacity: 0.8;
+        }
+        .password-toggle svg {
+            width: 1.2rem !important;
+            height: 1.2rem !important;
+            color: #64748b !important;
+            transition: color 0.15s ease, transform 0.15s ease !important;
+        }
+        .password-toggle:hover svg {
+            color: #1e293b !important;
+        }
+        .password-toggle:active svg {
+            transform: scale(0.85);
+        }
     </style>
 </head>
 <body cz-shortcut-listen="true">
@@ -106,26 +136,47 @@ if ($global_user_login == true) {
         function togglePassword(el) {
             const inputGroup = el.closest('.input-group') || el.parentElement;
             const passwordInput = inputGroup.querySelector('.password-input');
-            const tooltipEl = el.querySelector('[data-bs-toggle="tooltip"]');
+            const toggleLink = el.querySelector('a');
 
-            if (!passwordInput) return;
+            if (!passwordInput || !toggleLink) return;
 
             const isPassword = passwordInput.type === "password";
 
             // Toggle input type
             passwordInput.type = isPassword ? "text" : "password";
 
-            // Update tooltip text
-            const newTitle = isPassword ? "Hide password" : "Show password";
-            tooltipEl.setAttribute("title", newTitle);
-            tooltipEl.setAttribute("data-bs-original-title", newTitle);
+            // Update icon and tooltips
+            if (isPassword) {
+                // Change to eye-off icon
+                toggleLink.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye-off" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 3l18 18" />
+                        <path d="M10.584 10.587a2 2 0 0 0 2.828 2.83" />
+                        <path d="M9.363 5.365a9.466 9.466 0 0 1 2.637 -.365c4 0 7.333 2.333 10 7c-.778 1.361 -1.612 2.524 -2.503 3.488m-2.14 1.861c-1.631 1.1 -3.41 1.651 -5.36 1.651c-4 0 -7.333 -2.333 -10 -7c1.369 -2.395 2.913 -4.175 4.632 -5.341" />
+                    </svg>
+                `;
+                toggleLink.setAttribute('title', 'Hide password');
+                toggleLink.setAttribute('data-bs-original-title', 'Hide password');
+            } else {
+                // Change to eye icon
+                toggleLink.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M10 12a2 2 0 1 0 4 0" />
+                        <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                    </svg>
+                `;
+                toggleLink.setAttribute('title', 'Show password');
+                toggleLink.setAttribute('data-bs-original-title', 'Show password');
+            }
 
-            // Re-init Bootstrap tooltip (important)
-            const tooltip = bootstrap.Tooltip.getInstance(tooltipEl);
+            // Re-init Bootstrap tooltip
+            const tooltip = bootstrap.Tooltip.getInstance(toggleLink);
             if (tooltip) {
                 tooltip.dispose();
             }
-            new bootstrap.Tooltip(tooltipEl);
+            new bootstrap.Tooltip(toggleLink);
         }
 
         $('.form-method').submit(function (e) {

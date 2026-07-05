@@ -1102,7 +1102,10 @@
                                                     fontWeight: '800',
                                                     color: '#0f172a',
                                                     offsetY: 4,
-                                                    formatter: function (val) {
+                                                    formatter: function (val, opts) {
+                                                        if (opts && opts.globals && opts.globals.labels && opts.globals.labels[opts.seriesIndex] === 'No Data') {
+                                                            return 0;
+                                                        }
                                                         return val;
                                                     }
                                                 },
@@ -1111,6 +1114,9 @@
                                                     label: 'Total Txs',
                                                     color: '#64748b',
                                                     formatter: function (w) {
+                                                        if (w.globals.labels && w.globals.labels[0] === 'No Data') {
+                                                            return 0;
+                                                        }
                                                         return w.globals.seriesTotals.reduce((a, b) => a + b, 0);
                                                     }
                                                 }
@@ -1126,7 +1132,18 @@
                                     width: 2.5,
                                     colors: ['#ffffff']
                                 },
-                                tooltip: { theme: "dark", fillSeriesColor: false },
+                                tooltip: { 
+                                    theme: "dark", 
+                                    fillSeriesColor: false,
+                                    y: {
+                                        formatter: function(value, { series, seriesIndex, dataPointIndex, w }) {
+                                            if (w.globals.labels[seriesIndex] === 'No Data') {
+                                                return 0;
+                                            }
+                                            return value;
+                                        }
+                                    }
+                                },
                                 legend: { 
                                     show: true, 
                                     position: "bottom", 

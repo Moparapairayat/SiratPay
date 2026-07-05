@@ -160,7 +160,7 @@
     <meta charset="utf-8">
     <meta name="author" content="QubePlug Bangladesh">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Installer - PipraPay</title>
+    <title>Installer - SiratPay</title>
     <link rel="shortcut icon" href="<?= $piprapay_favicon ?? '' ?>">
 
     <link rel="stylesheet" href="<?php echo $site_url ?>assets/css/tabler.min.css?v=1.5" />
@@ -171,19 +171,207 @@
     </style>
     <style>
         :root{
+            --tblr-primary: #15803d; /* Forest Green */
+            --tblr-primary-rgb: 21, 128, 61;
+            --tblr-primary-hover: #166534;
+            --tblr-primary-active: #14532d;
+            --tblr-primary-bg-subtle: rgba(34, 197, 94, 0.08);
+            --tblr-primary-border-subtle: rgba(34, 197, 94, 0.15);
             --tblr-font-monospace: Monaco, Consolas, Liberation Mono, Courier New, monospace;
             --tblr-font-sans-serif: Inter Var, Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
             --tblr-font-serif: Georgia, Times New Roman, times, serif;
             --tblr-font-comic: Comic Sans MS, Comic Sans, Chalkboard SE, Comic Neue, sans-serif, cursive;
         }
-    </style>
 
-    <style>
-        .all-pages .card{
-            display: none;
+        body {
+            background: 
+                radial-gradient(at 0% 0%, rgba(34, 197, 94, 0.06) 0px, transparent 40%), 
+                radial-gradient(at 100% 0%, rgba(163, 230, 53, 0.04) 0px, transparent 40%), 
+                #ECEEF8 !important;
+            min-height: 100vh;
         }
-        .all-pages .card.active{
+
+        .all-pages .card {
+            display: none;
+            background: rgba(255, 255, 255, 0.85) !important;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(21, 128, 61, 0.15) !important;
+            border-radius: 24px !important;
+            box-shadow: 0 12px 36px rgba(21, 128, 61, 0.04) !important;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .all-pages .card.active {
             display: block;
+        }
+        .all-pages .card:hover {
+            box-shadow: 0 20px 48px rgba(21, 128, 61, 0.08) !important;
+        }
+
+        .card-header {
+            background: rgba(255, 255, 255, 0.4) !important;
+            border-bottom: 1px solid rgba(21, 128, 61, 0.06) !important;
+            padding: 1.5rem 1.5rem !important;
+        }
+
+        .card-title {
+            color: #0f172a !important;
+            font-weight: 700 !important;
+        }
+
+        .card-subtitle {
+            color: #64748b !important;
+            font-size: 0.85rem !important;
+        }
+
+        .card-body {
+            padding: 1.75rem !important;
+        }
+
+        .btn-primary {
+            background-color: #15803d !important;
+            border-color: #15803d !important;
+            color: #ffffff !important;
+            border-radius: 10px !important;
+            font-weight: 600 !important;
+            box-shadow: 0 4px 14px rgba(21, 128, 61, 0.2) !important;
+            transition: all 0.2s ease !important;
+            padding: 10px 20px !important;
+        }
+        .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+            background-color: #166534 !important;
+            border-color: #166534 !important;
+            box-shadow: 0 6px 20px rgba(21, 128, 61, 0.3) !important;
+        }
+
+        .btn-outline-primary {
+            color: #15803d !important;
+            border-color: #15803d !important;
+            border-radius: 10px !important;
+            font-weight: 600 !important;
+            transition: all 0.2s ease !important;
+            padding: 10px 20px !important;
+        }
+        .btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active {
+            background-color: #15803d !important;
+            border-color: #15803d !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 14px rgba(21, 128, 61, 0.2) !important;
+        }
+
+        .btn-light {
+            border-radius: 10px !important;
+            padding: 10px 20px !important;
+            font-weight: 600 !important;
+        }
+
+        .form-label {
+            font-weight: 600 !important;
+            color: #1e293b !important;
+            font-size: 0.85rem !important;
+            margin-bottom: 6px !important;
+        }
+
+        .form-control, .form-select {
+            border: 1px solid rgba(21, 128, 61, 0.15) !important;
+            border-radius: 10px !important;
+            padding: 10px 14px !important;
+            background-color: rgba(255, 255, 255, 0.8) !important;
+            transition: all 0.25s ease !important;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #22c55e !important;
+            box-shadow: 0 0 0 0.25rem rgba(34, 197, 94, 0.2) !important;
+            background-color: #ffffff !important;
+        }
+
+        .requirement-item {
+            background: rgba(255, 255, 255, 0.6) !important;
+            border: 1px solid rgba(21, 128, 61, 0.08) !important;
+            border-radius: 12px !important;
+            transition: all 0.2s ease;
+            padding: 1rem !important;
+        }
+        .requirement-item:hover {
+            border-color: rgba(21, 128, 61, 0.3) !important;
+            background: #ffffff !important;
+            transform: translateX(4px);
+        }
+
+        .steps {
+            background: rgba(255, 255, 255, 0.5) !important;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 16px !important;
+            padding: 16px !important;
+            border: 1px solid rgba(21, 128, 61, 0.08) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02) !important;
+        }
+
+        .steps-primary .step-item::after {
+            background: #cbd5e1 !important;
+            color: #475569 !important;
+        }
+        .steps-primary .step-item.active::after {
+            background: #a3e635 !important;
+            color: #0b3924 !important;
+            font-weight: bold !important;
+        }
+        .steps-primary .step-item.active {
+            color: #15803d !important;
+            font-weight: 700 !important;
+        }
+        .steps-primary .step-item.completed::after {
+            background: #15803d !important;
+            color: #ffffff !important;
+        }
+        .steps-primary .step-item.completed {
+            color: #166534 !important;
+        }
+
+        .alert-warning {
+            background: rgba(245, 158, 11, 0.06) !important;
+            border: 1px solid rgba(245, 158, 11, 0.2) !important;
+            color: #9a3412 !important;
+            border-radius: 14px !important;
+        }
+        
+        .driver-card {
+            transition: all 0.2s ease;
+        }
+        .driver-card:hover {
+            border-color: #15803d !important;
+            background-color: rgba(21, 128, 61, 0.02) !important;
+        }
+
+        .input-group-flat {
+            position: relative;
+        }
+        .password-toggle {
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s ease !important;
+            padding-right: 12px !important;
+            background-color: transparent !important;
+            border-left: none !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .password-toggle:hover {
+            opacity: 0.8;
+        }
+        .password-toggle svg {
+            width: 1.2rem !important;
+            height: 1.2rem !important;
+            color: #64748b !important;
+            transition: color 0.15s ease, transform 0.15s ease !important;
+        }
+        .password-toggle:hover svg {
+            color: #1e293b !important;
+        }
+        .password-toggle:active svg {
+            transform: scale(0.85);
         }
     </style>
 </head>
@@ -235,7 +423,7 @@
                                         $statusText  = $req['check'] ? 'Passed' : 'Failed';
 
                                     ?>
-                                        <div class="d-flex justify-content-between align-items-center border rounded p-3 mb-2">
+                                        <div class="d-flex justify-content-between align-items-center border rounded p-3 mb-2 requirement-item">
                                             <div>
                                                 <strong><?= $req['name'] ?></strong>
                                                 <div class="small text-muted">
@@ -297,10 +485,10 @@
 
                                     <div class="row gy-3">
                                         <div class="col-6">
-                                            <div class="form-control-wrap p-2 border rounded" style="height: 40px;">
-                                                <div class="form-check form-check-inline" style="margin-top: -2px;">
-                                                    <input class="form-check-input" type="checkbox" id="driverMysql" name="dbDriver" value="mysql" checked>
-                                                    <label class="form-check-label" for="driverMysql">MySQL / MariaDB</label>
+                                            <div class="form-control-wrap p-2 border rounded driver-card" style="height: 44px; display: flex; align-items: center; padding-left: 12px !important;">
+                                                <div class="form-check form-check-inline" style="margin-bottom: 0;">
+                                                    <input class="form-check-input" type="checkbox" id="driverMysql" name="dbDriver" value="mysql" checked style="cursor: pointer;">
+                                                    <label class="form-check-label fw-semibold" for="driverMysql" style="cursor: pointer; margin-left: 4px;">MySQL / MariaDB</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -422,14 +610,23 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="adminPassword" class="form-label">Password</label>
-                                    <div class="form-control-wrap">
-                                        <input type="password" class="form-control" id="adminPassword" name="adminPassword"
+                                    <div class="input-group input-group-flat">
+                                        <input type="password" class="form-control password-input" id="adminPassword" name="adminPassword"
                                                 placeholder="Enter password" required>
-                                        <div class="password-strength mt-1">
-                                            <small class="text-muted">Password strength: <strong><span id="passwordStrength">None</span></strong></small>
-                                            <div class="strength-meter mt-2">
-                                                <div class="strength-fill" id="passwordStrengthMeter" style="height: 2px; border-radius: 5px;"></div>
-                                            </div>
+                                        <span class="input-group-text password-toggle" onclick="togglePassword(this)">
+                                            <a href="javascript:void(0)" class="link-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Show password">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-eye">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                    <path d="M10 12a2 2 0 1 0 4 0" />
+                                                    <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                                </svg>
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <div class="password-strength mt-1">
+                                        <small class="text-muted">Password strength: <strong><span id="passwordStrength">None</span></strong></small>
+                                        <div class="strength-meter mt-2">
+                                            <div class="strength-fill" id="passwordStrengthMeter" style="height: 2px; border-radius: 5px;"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -437,11 +634,20 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="confirmPassword" class="form-label">Confirm Password</label>
-                                    <div class="form-control-wrap">
-                                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                                    <div class="input-group input-group-flat">
+                                        <input type="password" class="form-control password-input" id="confirmPassword" name="confirmPassword"
                                                 placeholder="Confirm password" required>
-                                        <div class="mt-1" id="passwordMatch"></div>
+                                        <span class="input-group-text password-toggle" onclick="togglePassword(this)">
+                                            <a href="javascript:void(0)" class="link-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Show password">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-eye">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                    <path d="M10 12a2 2 0 1 0 4 0" />
+                                                    <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                                </svg>
+                                            </a>
+                                        </span>
                                     </div>
+                                    <div class="mt-1" id="passwordMatch"></div>
                                 </div>
                             </div>
                         </div>
@@ -465,10 +671,10 @@
             <div class="card card-gutter-lg rounded-4 card-auth installer-page" id="page4">
                 <div class="card-body text-center mt-2">
                     <div class="m-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" style="width: 50px; height: 50px;" viewBox="0 0 24 24" fill="none" stroke="#5f38f9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-circle-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M9 12l2 2l4 -4" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" style="width: 50px; height: 50px;" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-circle-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M9 12l2 2l4 -4" /></svg>
                     </div>
                     <h3 class="nk-block-title mb-2">Installation Complete!</h3>
-                    <p class="mb-4">PipraPay has been successfully installed and configured.</p>
+                    <p class="mb-4">SiratPay has been successfully installed and configured.</p>
                     
                     <div class="installation-log mb-4" id="installationLog">
                         <!-- Installation log will appear here -->
@@ -501,6 +707,52 @@
     <script src="<?php echo $site_url ?>assets/js/custom-toast.js?v=1.2"></script>
 
     <script data-cfasync="false">
+        function togglePassword(el) {
+            const inputGroup = el.closest('.input-group') || el.parentElement;
+            const passwordInput = inputGroup.querySelector('.password-input');
+            const toggleLink = el.querySelector('a');
+
+            if (!passwordInput || !toggleLink) return;
+
+            const isPassword = passwordInput.type === "password";
+
+            // Toggle input type
+            passwordInput.type = isPassword ? "text" : "password";
+
+            // Update icon and tooltips
+            if (isPassword) {
+                // Change to eye-off icon
+                toggleLink.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye-off" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 3l18 18" />
+                        <path d="M10.584 10.587a2 2 0 0 0 2.828 2.83" />
+                        <path d="M9.363 5.365a9.466 9.466 0 0 1 2.637 -.365c4 0 7.333 2.333 10 7c-.778 1.361 -1.612 2.524 -2.503 3.488m-2.14 1.861c-1.631 1.1 -3.41 1.651 -5.36 1.651c-4 0 -7.333 -2.333 -10 -7c1.369 -2.395 2.913 -4.175 4.632 -5.341" />
+                    </svg>
+                `;
+                toggleLink.setAttribute('title', 'Hide password');
+                toggleLink.setAttribute('data-bs-original-title', 'Hide password');
+            } else {
+                // Change to eye icon
+                toggleLink.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M10 12a2 2 0 1 0 4 0" />
+                        <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                    </svg>
+                `;
+                toggleLink.setAttribute('title', 'Show password');
+                toggleLink.setAttribute('data-bs-original-title', 'Show password');
+            }
+
+            // Re-init Bootstrap tooltip
+            const tooltip = bootstrap.Tooltip.getInstance(toggleLink);
+            if (tooltip) {
+                tooltip.dispose();
+            }
+            new bootstrap.Tooltip(toggleLink);
+        }
+
         let currentStep = 1;
         const totalSteps = 4;
 
