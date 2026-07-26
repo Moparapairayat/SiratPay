@@ -1,4 +1,4 @@
-# 🐜 SiratPay — Open Source Self-Hosted Payment Automation Platform
+# SiratPay — Open Source Self-Hosted Payment Automation Platform
 
 SiratPay is an open-source payment automation system (AGPL-3.0) — a self-hosted, plugin-based platform that unifies payment gateways, wallets, APIs, and SMS-based verification into one system.
 
